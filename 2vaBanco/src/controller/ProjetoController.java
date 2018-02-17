@@ -13,8 +13,8 @@ import dominio.Projeto;
 
 public class ProjetoController {
 	
-	public void salvar(String nome, String id, String numero) 
-			throws SQLException, ParseException 
+	public void salvar(String id, String nome, String numero) 
+			throws SQLException, ParseException, NumberFormatException 
 		{
 	        Projeto projeto = new Projeto();
 	        projeto.setNome(nome);
@@ -24,8 +24,8 @@ public class ProjetoController {
 	        new ProjetoDao().salvar(projeto);
 	    }
 
-	    public void alterar(String idAntigo, String nome, String id, String numero) 
-			throws SQLException, ParseException 
+	    public void alterar(int idAntigo, String id, String nome, String numero) 
+			throws SQLException, ParseException, NumberFormatException 
 		{
 	        
 			Projeto projeto = new Projeto();
@@ -33,10 +33,10 @@ public class ProjetoController {
 			 projeto.setId(Integer.valueOf(id));
 		     projeto.setNumCliente(Integer.valueOf(numero));
 
-	        new ProjetoDao().alterar(projeto, Integer.valueOf(idAntigo));
+	        new ProjetoDao().alterar(projeto, idAntigo);
 	    }
 
-	    public List listaProjetos() throws SQLException{
+	    public List<Projeto> listaProjetos() throws SQLException{
 	        ProjetoDao dao = new ProjetoDao();
 	        try {
 	            return dao.findProjetos();

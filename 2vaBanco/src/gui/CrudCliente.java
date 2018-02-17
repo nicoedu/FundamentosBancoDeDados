@@ -23,6 +23,11 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import controller.ClienteController;
 import dominio.Cliente;
+import javax.swing.JTabbedPane;
+import javax.swing.JRadioButton;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class CrudCliente extends JFrame {
 
@@ -54,9 +59,38 @@ public class CrudCliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
 	public CrudCliente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 574, 551);
+		setBounds(100, 100, 574, 565);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Selecionar");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem menuCliente = new JMenuItem("Cliente");
+		mnNewMenu.add(menuCliente);
+		
+		JMenuItem menuProjeto = new JMenuItem("Projeto");
+		menuProjeto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrudProjeto cdProjeto = new CrudProjeto();
+				CrudCliente.this.setVisible(false);
+				cdProjeto.setVisible(true);
+			}
+		});
+		mnNewMenu.add(menuProjeto);
+		
+		JMenuItem menuDesenvolvedor = new JMenuItem("Desenvolvedor");
+		mnNewMenu.add(menuDesenvolvedor);
+		
+		JMenuItem menuHorario = new JMenuItem("Horário");
+		mnNewMenu.add(menuHorario);
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
