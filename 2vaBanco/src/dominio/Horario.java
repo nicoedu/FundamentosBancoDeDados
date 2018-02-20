@@ -2,7 +2,7 @@ package dominio;
 
 import java.sql.Timestamp;
 
-public class Horário {
+public class Horario {
 	
 	private int idProjeto;
 	private int codigoDesenvolvedor;
