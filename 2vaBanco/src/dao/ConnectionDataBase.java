@@ -15,7 +15,6 @@ public class ConnectionDataBase {
 	private static final String PASS = "";
 
 	public static Connection getConnection() {
-		System.out.println("Conectando ao Banco de Dados");
 		try {
 			Class.forName(DRIVER_CLASS);
 			return DriverManager.getConnection(URL_MYSQL, USER, PASS);

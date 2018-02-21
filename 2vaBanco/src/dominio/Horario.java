@@ -1,13 +1,13 @@
 package dominio;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Horario {
 	
 	private int idProjeto;
 	private int codigoDesenvolvedor;
-	private Timestamp inicio;
-	private Timestamp fim;
+	private Date inicio;
+	private Date fim;
 	
 	public int getIdProjeto() {
 		return idProjeto;
@@ -21,16 +21,16 @@ public class Horario {
 	public void setCodigoDesenvolvedor(int codigoDesenvolvedor) {
 		this.codigoDesenvolvedor = codigoDesenvolvedor;
 	}
-	public Timestamp getInicio() {
+	public Date getInicio() {
 		return inicio;
 	}
-	public void setInicio(Timestamp inicio) {
+	public void setInicio(Date inicio) {
 		this.inicio = inicio;
 	}
-	public Timestamp getFim() {
+	public Date getFim() {
 		return fim;
 	}
-	public void setFim(Timestamp fim) {
+	public void setFim(Date fim) {
 		this.fim = fim;
 	}
 	

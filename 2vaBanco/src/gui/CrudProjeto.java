@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -75,6 +76,13 @@ public class CrudProjeto extends JFrame {
 		mnNewMenu.add(menuDesenvolvedor);
 		
 		JMenuItem menuHorario = new JMenuItem("Horário");
+		menuHorario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrudHorario cdHorario = new CrudHorario();
+				CrudProjeto.this.setVisible(false);
+				cdHorario.setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuHorario);
 		
 		tfNomeProjeto = new JTextField();
@@ -109,6 +117,11 @@ public class CrudProjeto extends JFrame {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.setFillsViewportHeight(true);
 		contentPane.add(table);
+		
+		JScrollPane js=new JScrollPane(table);
+        js.setVisible(true);
+        js.setBounds(10, 151, 523, 172);
+        add(js);
 		
 		JButton btInserir = new JButton("Inserir");
 		btInserir.setBounds(341, 21, 89, 23);

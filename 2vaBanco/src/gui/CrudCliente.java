@@ -95,6 +95,13 @@ public class CrudCliente extends JFrame {
 		mnNewMenu.add(menuDesenvolvedor);
 		
 		JMenuItem menuHorario = new JMenuItem("Horário");
+		menuHorario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrudHorario cdHorario = new CrudHorario();
+				CrudCliente.this.setVisible(false);
+				cdHorario.setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuHorario);
 		
 		
@@ -160,6 +167,12 @@ public class CrudCliente extends JFrame {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.setFillsViewportHeight(true);
 		contentPane.add(table);
+		
+		JScrollPane js=new JScrollPane(table);
+        js.setVisible(true);
+        js.setBounds(10, 192, 538, 267);
+        add(js);
+		
 		
 		JButton btnDeletar = new JButton("Deletar");
 		btnDeletar.setBounds(316, 470, 89, 23);

@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,7 +46,7 @@ public class CrudDesenvolvedor extends JFrame {
 
 	public CrudDesenvolvedor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 554, 421);
+		setBounds(100, 100, 590, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -68,7 +69,7 @@ public class CrudDesenvolvedor extends JFrame {
 		mnNewMenu.add(menuCliente);
 		
 		JMenuItem menuProjeto = new JMenuItem("Projeto");
-		menuCliente.addActionListener(new ActionListener() {
+		menuProjeto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CrudProjeto cdProjeto = new CrudProjeto();
 				CrudDesenvolvedor.this.setVisible(false);
@@ -81,6 +82,13 @@ public class CrudDesenvolvedor extends JFrame {
 		mnNewMenu.add(menuDesenvolvedor);
 		
 		JMenuItem menuHorario = new JMenuItem("Horário");
+		menuHorario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrudHorario cdHorario = new CrudHorario();
+				CrudDesenvolvedor.this.setVisible(false);
+				cdHorario.setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuHorario);
 		
 		JLabel lblNewLabel = new JLabel("Código");
@@ -138,14 +146,19 @@ public class CrudDesenvolvedor extends JFrame {
 		tfDataAte.setColumns(10);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 194, 538, 2);
+		separator.setBounds(0, 200, 574, 2);
 		contentPane.add(separator);
 		
 		table = new JTable();
-		table.setBounds(10, 207, 518, 127);
+		table.setBounds(10, 207, 554, 168);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.setFillsViewportHeight(true);
 		contentPane.add(table);
+		
+		JScrollPane js=new JScrollPane(table);
+        js.setVisible(true);
+        js.setBounds(10, 207, 518, 127);
+        add(js);
 		
 		JButton btnListar = new JButton("Listar");
 		btnListar.setBounds(204, 166, 89, 23);
@@ -160,11 +173,11 @@ public class CrudDesenvolvedor extends JFrame {
 		contentPane.add(btnBuscar);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(163, 345, 89, 23);
+		btnEditar.setBounds(201, 386, 89, 23);
 		contentPane.add(btnEditar);
 		
 		JButton btnDeletar = new JButton("Deletar");
-		btnDeletar.setBounds(262, 345, 89, 23);
+		btnDeletar.setBounds(324, 386, 89, 23);
 		contentPane.add(btnDeletar);
 		
 		btnInserir.addActionListener(

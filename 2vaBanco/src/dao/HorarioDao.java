@@ -3,8 +3,8 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dominio.Horario;
@@ -16,16 +16,16 @@ public class HorarioDao extends GenericDao {
 	        save(insert, horario.getIdProjeto(), horario.getCodigoDesenvolvedor(), horario.getInicio(), horario.getFim() );
 	    }
 
-	    public void alterar(Horario horario, int numero, int codigo, Timestamp data) throws SQLException {
+	    public void alterar(Horario horario, int numero, int codigo, Date data) throws SQLException {
 	        String update = "UPDATE horario " +
 	                "SET ID = ?, CODIGO = ?, DATA_HORA_INICIO = ?, DATA_HORA_FIM = ? " +
-	                "WHERE ID = ? and CODIGO = ? and DATA_HORA_INICIO = ?";
-	        update(update, numero, codigo, data, horario.getIdProjeto(), horario.getCodigoDesenvolvedor(), horario.getInicio(), horario.getFim());
+	                "WHERE CODIGO = ? and DATA_HORA_INICIO = ? and ID = ?";
+	        update(update, numero, horario.getIdProjeto(), horario.getCodigoDesenvolvedor(), horario.getInicio(), horario.getFim(), codigo, data);
 	    }
 
-	    public void excluir(int id, int codigo, Timestamp data) throws SQLException {
+	    public void excluir(int id, int codigo, Date data) throws SQLException {
 	        String delete = "DELETE FROM horario WHERE ID = ? and CODIGO = ? and DATA_HORA_INICIO = ?";
-	        delete(delete, id);
+	        delete(delete, id, codigo, data);
 	    }
 
 	    public List<Horario> findHorarios() throws SQLException {
@@ -42,8 +42,8 @@ public class HorarioDao extends GenericDao {
 	            Horario horario = new Horario();
 	            horario.setIdProjeto(rs.getInt("ID"));
 	            horario.setCodigoDesenvolvedor(rs.getInt("CODIGO"));
-	            horario.setInicio(rs.getTimestamp("DATA_HORA_INICIO"));
-	            horario.setFim(rs.getTimestamp("DATA_HORA_FIM"));
+	            horario.setInicio(rs.getDate("DATA_HORA_INICIO"));
+	            horario.setFim(rs.getDate("DATA_HORA_FIM"));
 	            horarios.add(horario);
 	        }
 
@@ -67,8 +67,8 @@ public class HorarioDao extends GenericDao {
 	        	Horario horario = new Horario();
 	        	horario.setIdProjeto(rs.getInt("ID"));
 	            horario.setCodigoDesenvolvedor(rs.getInt("CODIGO"));
-	            horario.setInicio(rs.getTimestamp("DATA_HORA_INICIO"));
-	            horario.setFim(rs.getTimestamp("DATA_HORA_FIM"));
+	            horario.setInicio(rs.getDate("DATA_HORA_INICIO"));
+	            horario.setFim(rs.getDate("DATA_HORA_FIM"));
 	            horarios.add(horario);
 	        }
 
