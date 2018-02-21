@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -189,8 +190,7 @@ public class CrudHorario extends JFrame {
 		}else{
 			HorarioController ho = new HorarioController();
 	        try {
-	        	SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-	        	ho.excluir(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), dt1.parse((String) table.getValueAt(table.getSelectedRow(), 2)));
+	        	ho.excluir(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), Timestamp.valueOf((String) table.getValueAt(table.getSelectedRow(), 2)));
 	            JOptionPane.showMessageDialog(this, "Horario excluido com sucesso!");
 	            clearFields();
 	            onClickListar();
@@ -199,11 +199,6 @@ public class CrudHorario extends JFrame {
 					"Nao foi possivel excluir o Horario!n" + 
 					e.getLocalizedMessage()
 				);
-	        } catch (ParseException e){
-	        	JOptionPane.showMessageDialog(this, 
-						"Erro ao computar dados! \n" + 
-						e.getLocalizedMessage()
-					);
 	        }
 		}
 		
@@ -221,8 +216,7 @@ public class CrudHorario extends JFrame {
 		 	}
 			HorarioController ho = new HorarioController();
 	        try {
-	        	SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-	        	ho.alterar(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), dt1.parse((String) table.getValueAt(table.getSelectedRow(), 2)), tfCodigo.getText(), tfId.getText(), tfDe.getText(), tfAte.getText());
+	        	ho.alterar(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), Timestamp.valueOf((String) table.getValueAt(table.getSelectedRow(), 2)), tfCodigo.getText(), tfId.getText(), tfDe.getText(), tfAte.getText());
 	            JOptionPane.showMessageDialog(this, "Horario alterado com sucesso!");
 	            clearFields();
 	            onClickListar();
@@ -250,12 +244,13 @@ public class CrudHorario extends JFrame {
         modelo.addColumn("Cod. Desenvolvedor");
         modelo.addColumn("   Data de Inicio    ");
         modelo.addColumn("   Data de Término   ");
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
 		try{
 		List<Horario> hs = ho.listaHorarios();
         for(Horario h: hs ) {
             codigo = String.valueOf(h.getCodigoDesenvolvedor());
             id = String.valueOf(h.getIdProjeto());
+            System.out.println(h.getFim());
             dataDe = dt1.format(h.getInicio());
             dataAte = dt1.format(h.getFim());
             modelo.addRow(new Object[]{id, codigo, dataDe, dataAte});
@@ -267,6 +262,8 @@ public class CrudHorario extends JFrame {
 				e.getLocalizedMessage()
 			);
 			
+		} catch(Exception e){
+			e.printStackTrace();
 		}
 		
 	}
