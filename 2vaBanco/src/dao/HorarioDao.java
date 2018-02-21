@@ -31,7 +31,7 @@ public class HorarioDao extends GenericDao {
 	    public List<Horario> findHorarios() throws SQLException {
 	        List<Horario> horarios = new ArrayList<Horario>();
 
-	        String select = "SELECT * FROM PROJETO";
+	        String select = "SELECT * FROM HORARIO";
 
 	        PreparedStatement stmt = 
 				getConnection().prepareStatement(select);
@@ -40,9 +40,10 @@ public class HorarioDao extends GenericDao {
 
 	        while (rs.next()) {
 	            Horario horario = new Horario();
-	            horario.setId(rs.getInt("ID"));
-	            horario.setNome(rs.getString("NOME"));
-	            horario.setNumCliente(rs.getInt("NUMCLIENTE"));
+	            horario.setIdProjeto(rs.getInt("ID"));
+	            horario.setCodigoDesenvolvedor(rs.getInt("CODIGO"));
+	            horario.setInicio(rs.getTimestamp("DATA_HORA_INICIO"));
+	            horario.setFim(rs.getTimestamp("DATA_HORA_FIM"));
 	            horarios.add(horario);
 	        }
 
@@ -64,9 +65,10 @@ public class HorarioDao extends GenericDao {
 
 	        while (rs.next()) {
 	        	Horario horario = new Horario();
-	            horario.setId(rs.getInt("ID"));
-	            horario.setNome(rs.getString("NOME"));
-	            horario.setNumCliente(rs.getInt("NUMCLIENTE"));
+	        	horario.setIdProjeto(rs.getInt("ID"));
+	            horario.setCodigoDesenvolvedor(rs.getInt("CODIGO"));
+	            horario.setInicio(rs.getTimestamp("DATA_HORA_INICIO"));
+	            horario.setFim(rs.getTimestamp("DATA_HORA_FIM"));
 	            horarios.add(horario);
 	        }
 

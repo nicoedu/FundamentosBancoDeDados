@@ -65,6 +65,13 @@ public class CrudProjeto extends JFrame {
 		mnNewMenu.add(menuProjeto);
 		
 		JMenuItem menuDesenvolvedor = new JMenuItem("Desenvolvedor");
+		menuDesenvolvedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrudDesenvolvedor cdDesenvolvedro = new CrudDesenvolvedor();
+				CrudProjeto.this.setVisible(false);
+				cdDesenvolvedro.setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuDesenvolvedor);
 		
 		JMenuItem menuHorario = new JMenuItem("Horário");

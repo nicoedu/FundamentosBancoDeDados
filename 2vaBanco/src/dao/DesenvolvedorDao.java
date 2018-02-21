@@ -11,25 +11,25 @@ import dominio.Desenvolvedor;
 public class DesenvolvedorDao extends GenericDao {
 	
 	 public void salvar(Desenvolvedor desenvolvedor) throws SQLException {
-	        String insert = "INSERT INTO desenvolvedor (CODIGO, NOME, CUSTO, ID, DE, ATE) VALUES(?,?,?,?,?,?)";
+	        String insert = "INSERT INTO DESENVOLVEDOR (CODIGO, NOME, CUSTO, ID, DE, ATE) VALUES(?,?,?,?,?,?)";
 	        save(insert, desenvolvedor.getCodigo(), desenvolvedor.getNome(), desenvolvedor.getCusto(), desenvolvedor.getIdProjeto(), desenvolvedor.getDataDe(),  desenvolvedor.getDataAte());
 	    }
 
 	    public void alterar(Desenvolvedor desenvolvedor, int numero) throws SQLException {
-	        String update = "UPDATE desenvolvedor " +
+	        String update = "UPDATE DESENVOLVEDOR " +
 	                "CODIGO = ?, NOME = ?, CUSTO = ?, ID = ?, DE = ?, ATE = ?";
 	        update(update, numero, desenvolvedor.getCodigo(), desenvolvedor.getNome(), desenvolvedor.getCusto(), desenvolvedor.getIdProjeto(), desenvolvedor.getDataDe(),  desenvolvedor.getDataAte());
 	    }
 
 	    public void excluir(int codigo) throws SQLException {
-	        String delete = "DELETE FROM desenvolvedor WHERE CODIGO = ?";
+	        String delete = "DELETE FROM DESENVOLVEDOR WHERE CODIGO = ?";
 	        delete(delete, codigo);
 	    }
 
 	    public List<Desenvolvedor> findDesenvolvedors() throws SQLException {
 	        List<Desenvolvedor> desenvolvedors = new ArrayList<Desenvolvedor>();
 
-	        String select = "SELECT * FROM PROJETO";
+	        String select = "SELECT * FROM desenvolvedor";
 
 	        PreparedStatement stmt = 
 				getConnection().prepareStatement(select);

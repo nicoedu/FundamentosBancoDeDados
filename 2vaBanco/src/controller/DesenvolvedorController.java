@@ -3,6 +3,7 @@ package controller;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -12,32 +13,33 @@ import dominio.Desenvolvedor;
 
 public class DesenvolvedorController {
 	
-	public void salvar(String codigo, String nome, String custo, String idProjeto, Date de, Date ate) 
+	public void salvar(String codigo, String nome, String custo, String idProjeto, String de, String ate) 
 			throws SQLException, ParseException, NumberFormatException 
 		{
+			SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
 	        Desenvolvedor desenvolvedor = new Desenvolvedor();
 	        desenvolvedor.setNome(nome);
 	        desenvolvedor.setCodigo(Integer.valueOf(codigo));
 	        desenvolvedor.setIdProjeto(Integer.valueOf(idProjeto));
-	        desenvolvedor.setCusto(Float.valueOf(custo)); //TODO transformar em float de valor real
-	        desenvolvedor.setDataDe(de);
-	        desenvolvedor.setDataAte(ate);
+	        desenvolvedor.setCusto(Float.valueOf(custo));
+	        desenvolvedor.setDataDe(dt1.parse(de));
+	        desenvolvedor.setDataAte(dt1.parse(ate));
 	        
 	        new DesenvolvedorDao().salvar(desenvolvedor);
 	        
 	    }
 
-	    public void alterar(int codigoAntigo, String codigo, String nome, String custo, String idProjeto, Date de, Date ate) 
+	    public void alterar(int codigoAntigo, String codigo, String nome, String custo, String idProjeto, String de, String ate) 
 			throws SQLException, ParseException, NumberFormatException 
 		{
-	        
+	    	SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
 			Desenvolvedor desenvolvedor = new Desenvolvedor();
 			desenvolvedor.setNome(nome);
 	        desenvolvedor.setCodigo(Integer.valueOf(codigo));
 	        desenvolvedor.setIdProjeto(Integer.valueOf(idProjeto));
 	        desenvolvedor.setCusto(Float.valueOf(custo)); //TODO transformar em float de valor real
-	        desenvolvedor.setDataDe(de);
-	        desenvolvedor.setDataAte(ate);
+	        desenvolvedor.setDataDe(dt1.parse(de));
+	        desenvolvedor.setDataAte(dt1.parse(ate));
 
 	        new DesenvolvedorDao().alterar(desenvolvedor, codigoAntigo);
 	    }
