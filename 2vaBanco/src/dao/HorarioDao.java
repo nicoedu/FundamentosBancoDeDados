@@ -40,7 +40,6 @@ public class HorarioDao extends GenericDao {
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
-	        	System.out.println(rs.getTimestamp("DATA_HORA_INICIO"));
 	            Horario horario = new Horario();
 	            horario.setIdProjeto(rs.getInt("ID"));
 	            horario.setCodigoDesenvolvedor(rs.getInt("CODIGO"));

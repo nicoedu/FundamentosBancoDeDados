@@ -190,7 +190,10 @@ public class CrudHorario extends JFrame {
 		}else{
 			HorarioController ho = new HorarioController();
 	        try {
-	        	ho.excluir(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), Timestamp.valueOf((String) table.getValueAt(table.getSelectedRow(), 2)));
+	        	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
+	            Date parsedDate = dateFormat.parse((String) table.getValueAt(table.getSelectedRow(), 2));
+	            Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	        	ho.excluir(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), timestamp);
 	            JOptionPane.showMessageDialog(this, "Horario excluido com sucesso!");
 	            clearFields();
 	            onClickListar();
@@ -199,8 +202,9 @@ public class CrudHorario extends JFrame {
 					"Nao foi possivel excluir o Horario!n" + 
 					e.getLocalizedMessage()
 				);
-	        }
-		}
+	        } catch (ParseException e) {
+				e.printStackTrace();
+			}}
 		
 	}
 
@@ -216,7 +220,10 @@ public class CrudHorario extends JFrame {
 		 	}
 			HorarioController ho = new HorarioController();
 	        try {
-	        	ho.alterar(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), Timestamp.valueOf((String) table.getValueAt(table.getSelectedRow(), 2)), tfCodigo.getText(), tfId.getText(), tfDe.getText(), tfAte.getText());
+	        	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy kk:mm:ss");
+	        	Date parsedDate = dateFormat.parse((String) table.getValueAt(table.getSelectedRow(), 2));
+	            Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	        	ho.alterar(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 1)), timestamp, tfCodigo.getText(), tfId.getText(), tfDe.getText(), tfAte.getText());
 	            JOptionPane.showMessageDialog(this, "Horario alterado com sucesso!");
 	            clearFields();
 	            onClickListar();
@@ -250,9 +257,12 @@ public class CrudHorario extends JFrame {
         for(Horario h: hs ) {
             codigo = String.valueOf(h.getCodigoDesenvolvedor());
             id = String.valueOf(h.getIdProjeto());
-            System.out.println(h.getFim());
             dataDe = dt1.format(h.getInicio());
-            dataAte = dt1.format(h.getFim());
+            if(h.getFim() != null){
+            	dataAte = dt1.format(h.getFim());
+            }else{
+            	dataAte = "null";
+            }
             modelo.addRow(new Object[]{id, codigo, dataDe, dataAte});
         }
         table.setModel(modelo);
@@ -261,9 +271,6 @@ public class CrudHorario extends JFrame {
 				"Ocorreu um erro, tente novamente!n" + 
 				e.getLocalizedMessage()
 			);
-			
-		} catch(Exception e){
-			e.printStackTrace();
 		}
 		
 	}
@@ -281,9 +288,11 @@ public class CrudHorario extends JFrame {
 				e.getLocalizedMessage()
 			);
         } catch (ParseException e) {
-        	JOptionPane.showMessageDialog(this, "Formato de entrada inválido!");
+        	JOptionPane.showMessageDialog(this, "Formato de entrada inválido!" + e.getMessage());
 		} catch (NumberFormatException e){
-			JOptionPane.showMessageDialog(this, "Formato de entrada inválido!");
+			JOptionPane.showMessageDialog(this, "Formato de entrada inválido!" + e.getMessage());
+		} catch (Exception e){
+			JOptionPane.showMessageDialog(this, "Formato de entrada inválido!" + e.getMessage());
 		}
 		
 	}
